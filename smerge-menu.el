@@ -31,6 +31,7 @@
 ;;; Code:
 
 (require 'smerge-mode)
+(require 'transient)
 
 ;;;###autoload
 (defun smerge-menu-save-and-revert ()
@@ -48,9 +49,9 @@
   "Command dispatcher for smerge."
   :transient-suffix #'transient--do-call
   :transient-non-suffix #'transient--do-exit
-  [["SMerge"
-    ("n" "Next" smerge-next)
-    ("p" "Previous" smerge-prev)]
+  [["Move"
+    ("n" "Next conflict" smerge-next)
+    ("p" "Previous conflict" smerge-prev)]
    ["Keep"
     ("b" smerge-keep-base :description
      (lambda ()
@@ -108,16 +109,16 @@
     ("h" smerge-refine :description
      (lambda ()
        (if (smerge-check 1)
-           "Highlight different words of the conflict"
+           "Highlight different words"
          (propertize
-          "Highlight different words of the conflict"
+          "Highlight different words"
           'face
           'transient-inapt-suffix))))
     ("E" smerge-ediff :description
      (lambda ()
        (if (smerge-check 1) "Ediff" (propertize "Ediff" 'face
-                                                'transient-inapt-suffix))))]
-   ["Other"
+                                                'transient-inapt-suffix))))]]
+  [["Other"
     ("C" smerge-combine-with-next :description
      (lambda ()
        (if (smerge-check 1)
