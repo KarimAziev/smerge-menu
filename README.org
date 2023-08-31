@@ -1,0 +1,60 @@
+#+OPTIONS: ^:nil tags:nil
+
+* About
+
+Transient menu for =smerge-mode=.
+
+* Table of Contents                                       :TOC_2_gh:QUOTE:
+#+BEGIN_QUOTE
+- [[#about][About]]
+- [[#requirements][Requirements]]
+- [[#installation][Installation]]
+  - [[#with-use-package-and-straightel][With use-package and straight.el]]
+  - [[#manual-installation][Manual installation]]
+- [[#usage][Usage]]
+#+END_QUOTE
+
+* Requirements
+
+| Name  | Version |
+|-------+---------|
+| Emacs |    28.1 |
+
+
+* Installation
+
+** With use-package and straight.el
+#+begin_src elisp :eval no
+(use-package smerge-menu
+  :straight (smerge-menu
+             :repo "KarimAziev/smerge-menu"
+             :type git
+             :host github)
+  :after (smerge-mode)
+  :demand t
+  :hook (find-file . smerge-menu-try-smerge)
+  :commands (smerge-menu)
+  :config
+  (define-key smerge-mode-map (kbd "C-c k m") #'smerge-menu))
+#+end_src
+
+** Manual installation
+
+Download the source code and put it wherever you like, e.g. into =~/.emacs.d/smerge-menu/=
+
+#+begin_src shell :eval no
+git clone https://github.com/KarimAziev/smerge-menu.git ~/.emacs.d/smerge-menu/
+#+end_src
+
+Add the downloaded directory to the load path:
+
+#+begin_src elisp :eval no
+(add-to-list 'load-path "~/.emacs.d/smerge-menu/")
+(require 'smerge-menu)
+#+end_src
+
+* Usage
+
+**** ~M-x smerge-menu~
+Command dispatcher for smerge.
+
